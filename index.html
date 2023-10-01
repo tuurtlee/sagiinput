@@ -27,7 +27,7 @@
   </center>
 
   <center>
-    <input type="text" name="" value="" class="c-form-text" placeholder="お名前を入力してください。" />
+    <input type="text" name="" value="" class="c-form-text" id="nameText" placeholder="お名前を入力してください。" />
   </center>
 
   <center>
@@ -195,7 +195,8 @@
       margin-top: 20px;
       margin-bottom: 10px;
       margin-left: 20%;
-      font-size: 20px;
+      font-size: 18px;
+      font-family: 'Zen Maru Gothic', serif;
     }
 
     .smalltext {
@@ -213,48 +214,37 @@
 
 
     function startProgress() {
-      // let obj = document.getElementsByClassName("btn")[0];
-      // opacity_now = opacity_now - 1 / 5;
-      // for (let step = 0; step < 5; step++) {
-      //   opacity_now = opacity_now - 1 / 5;
-      //   obj.style.opacity = opacity_now; // 透明度を50%に指定
-      //   setTimeout(5000);
-      // }
+      if (nameText.value !== "") {
+        let obj = document.getElementsByClassName("btn")[0];
+        obj.style.opacity = 0; // 透明度を0%に指定
 
-      let obj = document.getElementsByClassName("btn")[0];
-      obj.style.opacity = 0; // 透明度を0%に指定
+        const progressBar = document.querySelector('.progBar .bar');
+        let repetitions = messages.length - 1;
 
-      const progressBar = document.querySelector('.progBar .bar');
-      let repetitions = messages.length - 1;
+        function increaseValue() {
+          if (repetitions > 0) {
+            percentage += 100 / (messages.length - 1);
+            progress++;
+            progressBar.style.width = `${percentage}%`;
+            document.getElementById('message').textContent = messages[progress] + "...";
 
-      function increaseValue() {
-        if (repetitions > 0) {
-          percentage += 100 / (messages.length - 1);
-          progress++;
-          progressBar.style.width = `${percentage}%`;
-          document.getElementById('message').textContent = messages[progress] + "...";
+            repetitions--;
 
-          repetitions--;
-
-          if (repetitions === 0) {
-            changeLocation();
-
-          } else {
-            setTimeout(increaseValue, Math.random() * 400 + 650); // n秒待って再度実行
+            if (repetitions === 0) {
+              setTimeout(changeLocation, Math.random() * 400 + 1000); // n秒待って再度実行
+            } else {
+              setTimeout(increaseValue, Math.random() * 400 + 650); // n秒待って再度実行
+            }
           }
         }
+        increaseValue(); // 初回の呼び出し
       }
-      increaseValue(); // 初回の呼び出し
     }
 
     function changeLocation() {
       window.location.href = "https://tuurtlee.github.io/sagiresult/"
     }
 
-    // PUSHボタンがクリックされたときにstartProgress関数を実行
-    // document.getElementById('pushButton').addEventListener('click', function () {
-    //   startProgress();
-    // });
   </script>
 
 </body>
