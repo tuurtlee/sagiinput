@@ -1,0 +1,453 @@
+<!-- input_site -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>柏陽詐欺チェッカー</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kiwi+Maru">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+</head>
+
+<body>
+  <header>
+    <img src="maru.png" alt="maru" class="maru" />
+    <h1 class="headline">
+      <a>柏陽詐欺チェッカー</a>
+    </h1>
+  </header>
+
+  <center>
+    <p class="smalltext">
+      柏陽詐欺をしているかどうかを確認できます。
+    </p>
+  </center>
+
+  <div>
+    <details>
+      <summary>
+        <span class="summary_inner">
+          Q．柏陽詐欺とは<span class="icon"></span>
+        </span>
+      </summary>
+      <div class="content">
+        A．柏陽生が自分の成績を低く見積もって第三者に伝え、安心感を与えたのち好成績を出し相手のメンタルをへし折る行為の総称。
+        <br>
+        <br>使用例：テスト前「私勉強してないからテスト10点かも！」
+        <br>　　　　実際「なんか80点取れてたうれしい！」
+      </div>
+    </details>
+  </div>
+
+  <center>
+    <input type="text" name="" value="" class="c-form-text" id="nameText" placeholder="お名前を入力してください。" />
+  </center>
+
+  <center>
+    <a class="btn btn--orange btn--radius" id="pushButton" onclick="startProgress()">PUSH</a>
+    <p class="smalltext2">入力された情報は僕の自己満足のために使用することがあるので、ニックネーム等用いることをおすすめします。</p>
+  </center>
+  <h4 class="message" id="message"></h4>
+  <!-- <button onclick="startProgress()">Start Progress</button> -->
+
+  <div class="progBar">
+    <div class="bar"></div>
+  </div>
+
+  <p>&nbsp;</p>
+
+  <footer>
+    <div>
+      <p class="bottomtext">© Created by かめめん.</p>
+      <a href="https://www.instagram.com/owen_kame/"> <img src="icon.png" alt="inst" class="inst"> </a>
+    </div>
+  </footer>
+
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      width: 100%;
+      padding: 0px 0;
+      margin-top: 0%;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    header .headline {
+      font-size: 32px;
+    }
+
+    .nav-list {
+      text-align: center;
+      padding: 10px 0;
+      margin: 0 auto;
+    }
+
+    .nav-list-item {
+      list-style: none;
+      display: inline-block;
+      margin: 0 20px;
+    }
+
+    footer {
+      position: absolute;
+      /*←絶対位置*/
+      bottom: 0;
+      /*下に固定*/
+      padding-top: 20px;
+      /* 上だけ指定 */
+      width: 100%;
+      height: 100px;
+      background-color: #174a5c;
+      color: white;
+      text-align: center;
+    }
+
+    ul.footer-menu li {
+      display: inline;
+    }
+
+    .c-form-text {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      height: 2.6em;
+      width: clamp(250px, 50%, 400px);
+      padding: 0 16px;
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 0 0 1.5px #ccc inset;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .c-form-text:focus {
+      outline: 0;
+      box-shadow: 0 0 0 2px rgb(33, 150, 243) inset;
+    }
+
+
+    *,
+    *:before,
+    *:after {
+      -webkit-box-sizing: inherit;
+      box-sizing: inherit;
+    }
+
+    html {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      font-size: 62.5%;
+    }
+
+    .btn,
+    a.btn,
+    button.btn {
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Kiwi Maru', serif;
+      line-height: 1.2;
+      position: relative;
+      display: inline-block;
+      padding: 1rem 4rem;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-transition: all 0.3s;
+      transition: all 0.3s;
+      text-align: center;
+      vertical-align: middle;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      color: #212529;
+      border-radius: 0.5rem;
+    }
+
+    .btn--orange,
+    a.btn--orange {
+      color: #fff;
+      background-color: #eb6100;
+    }
+
+    .btn--orange:hover,
+    a.btn--orange:hover {
+      color: #fff;
+      background: #f0741c;
+    }
+
+    a.btn--radius {
+      border-radius: 100vh;
+    }
+
+    .progBar {
+      width: 65%;
+      height: 20px;
+      background-color: #ececec;
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+
+    }
+
+    .progBar .bar {
+      height: 100%;
+      background-color: #FFCA28;
+      width: 0;
+      transition: width 1s;
+      /* アニメーションにトランジションを追加 */
+    }
+
+    .message {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      margin-left: 20%;
+      font-size: 18px;
+      font-family: 'Zen Maru Gothic', serif;
+    }
+
+    .smalltext {
+      margin: 0 10%;
+      font-size: 14px;
+      font-family: 'Zen Maru Gothic', serif;
+    }
+
+    .smalltext2 {
+      margin: 10px 10%;
+      font-size: 12px;
+      font-family: 'Zen Maru Gothic', serif;
+    }
+
+    .maru {
+      width: clamp(150px, 25%, 300px)
+    }
+
+    summary {
+      /* display: list-item;以外を指定してデフォルトの三角形アイコンを消します */
+      display: block;
+    }
+
+    summary::-webkit-details-marker {
+      /* Safariで表示されるデフォルトの三角形アイコンを消します */
+      display: none;
+    }
+
+    .summary_inner {
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      border: 1px solid #1f1042;
+      font-weight: bold;
+      color: #002255;
+      font-size: 18px;
+      font-family: 'Zen Maru Gothic', serif;
+      margin: 20px 10% 0px 10%;
+    }
+
+    /* --------アイコンを作ります-------- */
+    .icon {
+      display: block;
+      position: relative;
+      width: 24px;
+      margin-left: 6px;
+      flex-shrink: 0;
+      transform-origin: center 43%;
+      transition: transform 0.4s;
+    }
+
+    /* アコーディオンが開いた時のスタイル */
+    details[open] .icon {
+      transform: rotate(180deg);
+    }
+
+    /* アイコンのバーのスタイル */
+    .icon::before,
+    .icon::after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 15px;
+      height: 3px;
+      background-color: #7050ff;
+    }
+
+    .icon::before {
+      left: 0;
+      transform: rotate(45deg);
+    }
+
+    .icon::after {
+      right: 0;
+      transform: rotate(-45deg);
+    }
+
+    @keyframes close-animation {
+      from {
+        transform: rotate(180deg);
+      }
+
+      to {
+        transform: rotate(0deg);
+      }
+    }
+
+    /* アコーディオンが開いた時にアイコンをアニメーションさせます */
+    details[open] .summary_inner::after {
+      animation: 0.4s open-animation forwards;
+    }
+
+    @keyframes open-animation {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(180deg);
+      }
+    }
+
+    /* --------アコーディオンの中身のスタイル-------- */
+    .content {
+      background-color: #f0f2ff;
+      padding: 10px 24px;
+      margin: 0px 10%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 16px;
+      font-family: 'Zen Maru Gothic', serif;
+    }
+
+    /* --------レイアウト用のスタイル-------- */
+    .wrapper {
+      display: flex;
+      margin: 0 auto;
+    }
+
+    .wrapper details {
+      margin-bottom: 16px;
+    }
+
+    .wrapper details:last-child {
+      margin-bottom: 0;
+    }
+
+    .wrapper_normalIcon,
+    .wrapper_pseudoElementsIcon {
+      width: 700px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 1071px) {
+      .wrapper_normalIcon {
+        margin-right: 24px;
+      }
+    }
+
+    @media (max-width: 1070px) {
+      .wrapper {
+        flex-direction: column;
+      }
+
+      .wrapper_normalIcon {
+        margin-bottom: 24px;
+      }
+    }
+
+    @media (max-width: 760px) {
+
+      .wrapper_normalIcon,
+      .wrapper_pseudoElementsIcon {
+        width: 100%;
+      }
+    }
+
+    .wrapper_title {
+      font-size: 22px;
+    }
+
+    .inst {
+      margin-top: 10px;
+      width: 30px
+    }
+
+    .bottomtext {
+      margin: 0 6%;
+      font-size: 14px;
+      font-family: 'Zen Maru Gothic', serif;
+    }
+  </style>
+
+  <script>
+    let again = false;
+    let percentage = 0;
+    let progress = 0;
+    var messages = ["", "名前を送信中", "柏陽生かどうかを分析中", "学力を予想中", "柏陽詐欺をしているかを推測中", "授業の柏陽ファイルを買ったかを問い合わせ中", "柏陽生に同情中", "Youtube かめめん で検索を宣伝中", "結果を受信中"];
+
+    function startProgress() {
+      if (nameText.value !== "" && again == false) {
+        again = true;
+        document.getElementById('message').textContent = messages[progress] + "...";
+        let obj = document.getElementsByClassName("btn")[0];
+        obj.style.opacity = 0; // 透明度を0%に指定
+        let obj2 = document.getElementsByClassName("progBar")[0];
+        obj2.style.opacity = 1; // 透明度を0%に指定
+
+        // const Http = new XMLHttpRequest();
+        // const url = 'https://script.google.com/macros/s/AKfycbwI_MiLTei0qMyY5s7pxHTlWKGAc6MypNNvGs588-ylUZZZ-bxo2FmjAi-aqMEU-iBt/exec';
+        // Http.open("GET", url);
+        // Http.send();
+
+
+        const progressBar = document.querySelector('.progBar .bar');
+        let repetitions = messages.length - 1;
+
+        function increaseValue() {
+          if (repetitions > 0) {
+            percentage += 100 / (messages.length - 1);
+            progress++;
+            progressBar.style.width = `${percentage}%`;
+            document.getElementById('message').textContent = messages[progress] + "...";
+
+            repetitions--;
+
+            if (repetitions === 0) {
+              setTimeout(changeLocation, Math.random() * 400 + 1000); // n秒待って再度実行
+            } else {
+              setTimeout(increaseValue, Math.random() * 400 + 650); // n秒待って再度実行
+            }
+          }
+        }
+        increaseValue(); // 初回の呼び出し
+      } else {
+      }
+    }
+
+    function changeLocation() {
+      window.location.href = "https://tuurtlee.github.io/sagiresult/?name=" + nameText.value;
+    }
+
+  </script>
+
+</body>
+
+</html>
